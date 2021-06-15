@@ -1,19 +1,34 @@
 import sys
 
-
-# Найти сумму n элементов следующего ряда чисел: 1, -0.5, 0.25, -0.125,… Количество элементов (n) вводится с клавиатуры.
-a = 10
-b = 1
-s = 0
-for i in range(a):
-    s += b
-    b /= -2
-# Универсальный код для замера количества памяти, занятой под переменные в произвольной программе
-sum_size = 0
-sum_size += sys.getsizeof(a)
-sum_size += sys.getsizeof(b)
-sum_size += sys.getsizeof(i)
-sum_size += sys.getsizeof(s)
+print(sys.version, sys.platform)
 
 
-print('Переменные занимают', sum_size)
+def show_size(x, level=0):
+    print('t' * level, f"type={x.__class__}, size= {sys.getsizeof(x)}, object= {x}", )
+    if hasattr(x, '_iter_'):
+        if hasattr(x, 'items'):
+            xx: object
+            for xx in x.items():
+                show_size(xx, level + 1)
+        elif not isinstance(x, str):
+            for xx in x:
+                show_size(xx, level + 1)
+
+
+def my_func(num_list):
+    f = open("1.txt", "r")
+
+    a = "tmp"
+    b = "1.txt"
+    c = "2.txt"
+    ENC = "utf-8"
+    print("Данные после выполения задачи:")
+    with open(b, encoding=ENC) as b, open(c, "w", encoding=ENC) as c:
+        for line in b:
+            if a not in line:
+                c.write(line)
+    f = open("2.txt", "r")
+    return locals()
+
+
+show_size(my_func)
